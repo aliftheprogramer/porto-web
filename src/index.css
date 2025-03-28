@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+:root {
+    --navyBlack: #0A192F;
+    --trueBlack: #121212;
+    --mainText: #E0E0E0;
+    --brightBlue: #007BFF;
+    --skyBlue: #00A8E8;
+    --hover1: #1E90FF;
+    --hover2: #2A9D8F;
+    --borderandShadow: #333333;
+    --card: #1A1A2E
+}
+
+.navbar{
+    background-color: var(--navyBlack);
+}
+
+.logo_atas{
+    color: var(--skyBlue);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+body{
+    background-color: var(--navyBlack);
+    color: var(--mainText);
+}
+h3{
+    font-family: Poppins, sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+h1{
+    font-family: Poppins, sans-serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    color: var(--skyBlue);
+}
+.on-page{
+    border-bottom: 2px solid var(--skyBlue);
+
+}
+
+.fsd{
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 1s ease-in-out;
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-slide-in {
+    animation: slide-in 1s ease-in-out;
+}
