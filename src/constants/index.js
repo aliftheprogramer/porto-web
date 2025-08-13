@@ -8,6 +8,7 @@ export const NAVIGATION_LINKS = [
 
 // Developer roles for typing animation
 export const DEVELOPER_ROLES = [
+    "Hello, I'm Alif Arya",
     "Full Stack Developer",
     "UI/UX Designer", 
     "Mobile Developer",

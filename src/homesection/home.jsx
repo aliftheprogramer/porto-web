@@ -26,26 +26,22 @@ export default function Home() {
             <div className="relative max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
                 {/* Left Content - Text */}
                 <div className={`space-y-8 ${isVisible ? 'animate-fadeInLeft' : 'opacity-0'}`}>
-                    {/* Greeting with animated icon */}
-                    <div className="flex items-center gap-3">
-                        <div className="p-2 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-lg">
-                            <img src="https://img.icons8.com/fluency/32/waving-hand.png" alt="wave" className="w-6 h-6" />
-                        </div>
-                        <p className="text-lg text-gray-300 font-medium">Hello, I'm</p>
-                    </div>
-
-                    {/* Name with gradient */}
-                    <div className="space-y-4">
-                        <h1 className="text-5xl lg:text-7xl font-bold">
-                            <span className="gradient-text">Alif Arya</span>
-                        </h1>
-                        
-                        {/* Dynamic typing text */}
-                        <div className="h-20 flex items-center">
-                            <h2 className="text-2xl lg:text-4xl font-semibold text-gray-300">
-                                {typingState.currentText}
-                                <span className="animate-pulse">|</span>
-                            </h2>
+                    {/* Simple Typing Animation */}
+                    <div className="space-y-6">
+                        <div className="h-32 flex items-center relative">
+                            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-400/10 to-purple-600/10 rounded-xl blur-xl"></div>
+                            <div className="relative">
+                                <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-white via-cyan-300 to-purple-300 bg-clip-text text-transparent">
+                                    {typingState.currentText}
+                                    <span className="animate-pulse text-cyan-400 ml-1">|</span>
+                                </h1>
+                                {/* Status Indicator */}
+                                <div className="mt-2">
+                                    <span className="text-sm text-gray-500 font-medium">
+                                        {typingState.status}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -82,7 +78,7 @@ export default function Home() {
                             <img src="https://img.icons8.com/fluency/24/twitter.png" alt="twitter" className="w-6 h-6" />
                         </a>
                         <a href="#" className="p-3 bg-gray-800 rounded-xl hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-600 transition-all duration-300 hover:scale-110">
-                            <img src="https://img.icons8.com/fluency/24/instagram.png" alt="instagram" className="w-6 h-6" />
+                            <img src="https://img.icons8.com/?size=100&id=Xy10Jcu1L2Su&format=png&color=000000https://icons8.com/icon/Xy10Jcu1L2Su/instagram.png" alt="instagram" className="w-6 h-6" />
                         </a>
                     </div>
                 </div>
@@ -99,7 +95,7 @@ export default function Home() {
                                 <img
                                     src="/images/alipganteng.jpg"
                                     alt="Alif Profile"
-                                    className="w-full h-96 object-cover rounded-2xl filter brightness-110 saturate-110"
+                                    className="w-full h-[500px] object-cover rounded-2xl filter brightness-110 saturate-110"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-cyan-400/20 to-transparent"></div>
                             </div>

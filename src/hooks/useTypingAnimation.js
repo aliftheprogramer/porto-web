@@ -63,6 +63,7 @@ export const useTypingAnimation = (roles, options = {}) => {
     return {
         currentText,
         currentIndex,
-        isTyping
+        isTyping,
+        status: isTyping ? 'typing...' : 'deleting...'
     };
 };

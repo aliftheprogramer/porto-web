@@ -60,26 +60,7 @@ export const PROJECTS_DATA = [
             },
         ]
     },
-    {
-        title: "Banjir Monitoring",
-        description: "Sistem monitoring banjir dengan dashboard analytics.",
-        technologies: ["Vue.js", "Python", "PostgreSQL"],
-        image: "/images/banjir2.png",
-        githubLink: "#",
-        liveLink: "#",
-        category: "Web", 
-        icons8Category: "web",
-        icons: [
-            { 
-                type: "github", 
-                link: "https://github.com/aliftheprogramer/banjir-monitoring" 
-            },
-            {
-                type: "external-link",
-                link: "#",
-            },
-        ]
-    },
+
     {
         title: "Flood Management System",
         description: "Comprehensive flood management and prediction system.",
