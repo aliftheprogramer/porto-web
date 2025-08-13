@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
-function Navbar() {
+function Navbar({ setActivePage }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const currentPath = window.location.pathname;
 
     return (
         <div className="container mx-auto flex justify-between items-center px-4 md:px-16 py-4 navbar">
@@ -32,94 +31,52 @@ function Navbar() {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-6">
-                <a
-                    href="/"
-                    className={`text-white text-sm md:text-base ${currentPath === "/" ? "on-page" : ""}`}
+                <button
+                    onClick={() => setActivePage('home')}
+                    className="text-white text-sm md:text-base"
                 >
                     Home
-                </a>
-                <a
-                    href="/about"
-                    className={`text-white text-sm md:text-base ${currentPath === "/about" ? "on-page" : ""}`}
+                </button>
+                <button
+                    onClick={() => setActivePage('about')}
+                    className="text-white text-sm md:text-base"
                 >
                     About
-                </a>
-                <a
-                    href="/project"
-                    className={`text-white text-sm md:text-base ${currentPath === "/project" ? "on-page" : ""}`}
+                </button>
+                <button
+                    onClick={() => setActivePage('project')}
+                    className="text-white text-sm md:text-base"
                 >
                     Project
-                </a>
-                <a
-                    href="/contact"
-                    className={`text-white text-sm md:text-base ${currentPath === "/contact" ? "on-page" : ""}`}
+                </button>
+                <button
+                    onClick={() => setActivePage('contact')}
+                    className="text-white text-sm md:text-base"
                 >
                     Contact
-                </a>
+                </button>
             </div>
 
             {/* Mobile Side Menu */}
             {isMenuOpen && (
                 <div className="fixed inset-0 z-50">
-                    {/* Background Overlay */}
                     <div
                         className="absolute inset-0 bg-black bg-opacity-30"
                         onClick={() => setIsMenuOpen(false)}
                     ></div>
-
-                    {/* Side Menu */}
                     <div
-                        className={`absolute top-0 left-0 h-full w-1/2 bg-gray-800 flex flex-col items-start p-6 space-y-6 transform transition-transform duration-300 ${
-                            isMenuOpen ? "translate-x-0" : "-translate-x-full"
-                        }`}
+                        className="absolute top-0 left-0 h-full w-1/2 bg-gray-800 flex flex-col items-start p-6 space-y-6"
                     >
                         <button
                             className="text-white self-end"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
-                            </svg>
+                            ✖️
                         </button>
-                        <a
-                            href="/"
-                            className={`text-white text-lg ${currentPath === "/" ? "on-page" : ""}`}
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Home
-                        </a>
-                        <a
-                            href="/about"
-                            className={`text-white text-lg ${currentPath === "/about" ? "on-page" : ""}`}
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            About
-                        </a>
-                        <a
-                            href="/project"
-                            className={`text-white text-lg ${currentPath === "/project" ? "on-page" : ""}`}
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Project
-                        </a>
-                        <a
-                            href="/contact"
-                            className={`text-white text-lg ${currentPath === "/contact" ? "on-page" : ""}`}
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Contact
-                        </a>
+                        <button onClick={() => { setActivePage('home'); setIsMenuOpen(false); }}>Home</button>
+                        <button onClick={() => { setActivePage('about'); setIsMenuOpen(false); }}>About</button>
+                        <button onClick={() => { setActivePage('project'); setIsMenuOpen(false); }}>Project</button>
+                        <button onClick={() => { setActivePage('contact'); setIsMenuOpen(false); }}>Contact</button>
                     </div>
                 </div>
             )}

@@ -36,19 +36,30 @@ export default function Project() {
             ]
 
         },
+                {
+            image: "images/Frame 1.png",
+            title: "Flood Tracker",
+            desc: "A comprehensive flood tracking application designed to monitor real-time water levels and provide early warnings to communities at risk. The system integrates a mobile app built with Flutter for user-friendly alerts and a web dashboard powered by Next.js for administrative monitoring and data analysis. The goal is to mitigate flood impact through timely information and efficient response coordination.",
+            codelanguage: "Flutter, Next.js",
+            icons: [
+                { component: <GitHubIcon />, link: "https://github.com/aliftheprogramer/flood-track.git" }
+            ]
+        },
+        
+
         // Tambahkan proyek lain di sini
     ];
 
     return (
-        <div className="flex flex-col items-start justify-start pt-6 h-screen">
+        <div className="flex flex-col items-center justify-start pt-6 min-h-screen px-4">
             <p className="self-stretch text-center text-white text-3xl font-bold font-['Poppins']">
                 Past Project Experience
             </p>
-            <p className="self-stretch text-center text-white text-sm font-bold font-['Roboto'] pt-4">
+            <p className="self-stretch text-center text-white text-sm font-bold font-['Roboto'] pt-4 mb-8">
                 Explore the projects I’ve worked on so far
             </p>
-            <div className="w-full flex flex-col md:flex-row justify-center items-center gap-4 pt-6">
-                {/* Gunakan map untuk membuat CardSection secara dinamis */}
+            {/* Container for single-column card layout on desktop */}
+            <div className="w-full max-w-5xl flex flex-col items-center gap-12">
                 {projects.map((project, index) => (
                     <CardSection
                         key={index}
