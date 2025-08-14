@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { PROJECTS_DATA as projects } from "../data";
 
 // Project Card Component untuk horizontal scroll
+<<<<<<< HEAD
 function ProjectCard({ image, title, desc, technologies, icons, category }) {
+=======
+function ProjectCard({ image, title, desc, technologies, icons, category, liveLink, githubLink }) {
+>>>>>>> remotes/origin/new-portfolio
     const [isHovered, setIsHovered] = useState(false);
 
     const getCategoryInfo = (cat) => {
@@ -19,7 +23,11 @@ function ProjectCard({ image, title, desc, technologies, icons, category }) {
                     color: 'from-blue-400 to-cyan-600', 
                     bg: 'bg-blue-400/20' 
                 };
+<<<<<<< HEAD
             default:
+=======
+            default:    
+>>>>>>> remotes/origin/new-portfolio
                 return { 
                     icon: <img src="https://img.icons8.com/fluency/48/star.png" alt="star" className="w-4 h-4" />, 
                     color: 'from-purple-400 to-pink-600', 
@@ -30,6 +38,22 @@ function ProjectCard({ image, title, desc, technologies, icons, category }) {
 
     const categoryInfo = getCategoryInfo(category);
 
+<<<<<<< HEAD
+=======
+    // Determine best available link for the View button
+    const isValidUrl = (url) => typeof url === 'string' && url.trim() && url.trim() !== '#';
+    const viewLink = (() => {
+        if (isValidUrl(liveLink)) return liveLink;
+        if (isValidUrl(githubLink)) return githubLink;
+        // Prefer explicit external links first
+        const preferred = icons?.find(i => isValidUrl(i.link) && (i.type === 'external-link' || i.type === 'link'));
+        if (preferred) return preferred.link;
+        // Fallback to any valid icon link (e.g., github)
+        const any = icons?.find(i => isValidUrl(i.link));
+        return any?.link || null;
+    })();
+
+>>>>>>> remotes/origin/new-portfolio
     return (
         <div 
             className="relative group h-full"
@@ -37,9 +61,15 @@ function ProjectCard({ image, title, desc, technologies, icons, category }) {
             onMouseLeave={() => setIsHovered(false)}
         >
             {/* Glowing background effect */}
+<<<<<<< HEAD
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-all duration-500"></div>
             
             <div className="relative glass-dark rounded-3xl overflow-hidden h-[500px] flex flex-col">
+=======
+            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-all duration-500 pointer-events-none"></div>
+            
+            <div className="relative z-10 glass-dark rounded-3xl overflow-hidden h-[500px] flex flex-col">
+>>>>>>> remotes/origin/new-portfolio
                 {/* Image Section */}
                 <div className="relative overflow-hidden">
                     <div className="relative h-48">
@@ -108,6 +138,7 @@ function ProjectCard({ image, title, desc, technologies, icons, category }) {
                     </div>
 
                     {/* Action buttons - compact */}
+<<<<<<< HEAD
                     <div className="flex items-center justify-between pt-4 border-t border-white/10 mt-4">
                         <div className="flex gap-2">
                             {icons?.slice(0, 2).map((icon, index) => (
@@ -135,6 +166,60 @@ function ProjectCard({ image, title, desc, technologies, icons, category }) {
 
                 {/* Hover effect overlay */}
                 <div className={`absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-purple-600/10 transition-all duration-500 rounded-3xl ${
+=======
+                    <div className="flex items-center justify-between pt-4 border-t border-white/10 mt-4 relative z-10">
+                        <div className="flex gap-2">
+                            {icons?.slice(0, 2).map((icon, index) => {
+                                const isValid = icon.link && icon.link !== '#';
+                                const Wrapper = isValid ? 'a' : 'div';
+                                const wrapperProps = isValid
+                                    ? { href: icon.link, target: "_blank", rel: "noopener noreferrer" }
+                                    : {};
+                                return (
+                                    <Wrapper
+                                        key={index}
+                                        {...wrapperProps}
+                                        className={`w-8 h-8 glass rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 ${
+                                            isValid
+                                                ? 'text-gray-400 hover:text-cyan-400 hover:border-cyan-400/30 hover:bg-cyan-400/10 cursor-pointer'
+                                                : 'text-gray-600 opacity-50 cursor-not-allowed'
+                                        }`}
+                                        aria-disabled={!isValid}
+                                        title={isValid ? icon.type : 'Link not available'}
+                                    >
+                                        <img
+                                            src={`https://img.icons8.com/fluency/48/${icon.type}.png`}
+                                            alt={icon.type}
+                                            className="w-4 h-4"
+                                        />
+                                    </Wrapper>
+                                );
+                            })}
+                        </div>
+
+                        {viewLink ? (
+                            <a
+                                href={viewLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`px-3 py-1.5 bg-gradient-to-r ${categoryInfo.color} bg-opacity-20 border border-opacity-40 rounded-full text-xs font-semibold hover:bg-opacity-30 transition-all duration-300 hover:scale-105 text-white flex items-center gap-1 pointer-events-auto z-20`}
+                            >
+                                View {categoryInfo.icon}
+                            </a>
+                        ) : (
+                            <button
+                                disabled
+                                className={`px-3 py-1.5 bg-gradient-to-r ${categoryInfo.color} bg-opacity-10 border border-opacity-20 rounded-full text-xs font-semibold text-white/60 flex items-center gap-1 cursor-not-allowed`}
+                            >
+                                View {categoryInfo.icon}
+                            </button>
+                        )}
+                    </div>
+                </div>
+
+                {/* Hover effect overlay (visual only, don't block clicks) */}
+                <div className={`absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-purple-600/10 transition-all duration-500 rounded-3xl pointer-events-none ${
+>>>>>>> remotes/origin/new-portfolio
                     isHovered ? 'opacity-100' : 'opacity-0'
                 }`}></div>
             </div>
@@ -326,6 +411,11 @@ export default function Project() {
                                     technologies={project.technologies}
                                     icons={project.icons}
                                     category={project.category}
+<<<<<<< HEAD
+=======
+                                    liveLink={project.liveLink}
+                                    githubLink={project.githubLink}
+>>>>>>> remotes/origin/new-portfolio
                                 />
                             </div>
                         ))}
