@@ -29,7 +29,7 @@ function Navbar({ setActivePage }) {
                 {/* Logo dengan efek gradient */}
                 <div className="relative group">
                     <div className="font-bold text-2xl bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                        Alif
+                        Alif.kt
                     </div>
                     <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-lg blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
                 </div>

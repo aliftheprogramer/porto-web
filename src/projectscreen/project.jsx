@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { PROJECTS_DATA as projects } from "../data";
 
 // Project Card Component untuk horizontal scroll
@@ -184,6 +184,9 @@ export default function Project() {
     const [isVisible, setIsVisible] = useState(false);
     const [activeFilter, setActiveFilter] = useState('all');
     const [isScrolling, setIsScrolling] = useState(true);
+    const scrollRef = useRef(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const dragState = useRef({ startX: 0, scrollLeft: 0 });
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -218,27 +221,100 @@ export default function Project() {
     // Auto scroll functionality
     useEffect(() => {
         if (!isScrolling) return;
-
-        const scrollContainer = document.getElementById('projects-scroll-container');
+        const scrollContainer = scrollRef.current || document.getElementById('projects-scroll-container');
         if (!scrollContainer) return;
 
-        let scrollAmount = 0;
-        const scrollSpeed = 1; // pixels per frame
-        const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+        const scrollSpeed = 1; // pixels per tick
 
         const autoScroll = () => {
-            if (scrollAmount >= maxScroll) {
-                scrollAmount = 0; // Reset to beginning
-            } else {
-                scrollAmount += scrollSpeed;
-            }
-            scrollContainer.scrollLeft = scrollAmount;
+            const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+            if (maxScroll <= 0) return;
+            const next = scrollContainer.scrollLeft + scrollSpeed;
+            scrollContainer.scrollLeft = next >= maxScroll ? 0 : next;
         };
 
         const interval = setInterval(autoScroll, 50); // 20fps
 
         return () => clearInterval(interval);
     }, [isScrolling, filteredProjects.length, activeFilter]);
+
+    // Horizontal scroll with mouse wheel (including trackpads)
+    const handleWheel = (e) => {
+        const el = scrollRef.current;
+        if (!el) return;
+        // Prefer vertical delta to drive horizontal scroll for mouse wheels, but also handle trackpads
+        const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+        if (delta === 0) return;
+        el.scrollLeft += delta;
+        // Prevent page scroll when we can scroll horizontally
+        if (el.scrollWidth > el.clientWidth) {
+            e.preventDefault();
+        }
+    };
+
+    // Drag to scroll (desktop)
+    const handleMouseDown = (e) => {
+        const el = scrollRef.current;
+        if (!el) return;
+        setIsDragging(true);
+        setIsScrolling(false);
+        dragState.current.startX = e.pageX - el.offsetLeft;
+        dragState.current.scrollLeft = el.scrollLeft;
+    };
+
+    const handleMouseMove = (e) => {
+        const el = scrollRef.current;
+        if (!el || !isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - el.offsetLeft;
+        const walk = (x - dragState.current.startX) * 1; // adjust multiplier for sensitivity
+        el.scrollLeft = dragState.current.scrollLeft - walk;
+    };
+
+    const handleMouseUp = () => setIsDragging(false);
+    const handleMouseLeave = () => {
+        setIsDragging(false);
+        setIsScrolling(true);
+    };
+
+    // Touch swipe support
+    const handleTouchStart = (e) => {
+        const el = scrollRef.current;
+        if (!el) return;
+        setIsScrolling(false);
+        dragState.current.startX = e.touches[0].pageX - el.offsetLeft;
+        dragState.current.scrollLeft = el.scrollLeft;
+    };
+
+    const handleTouchMove = (e) => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const x = e.touches[0].pageX - el.offsetLeft;
+        const walk = (x - dragState.current.startX) * 1;
+        el.scrollLeft = dragState.current.scrollLeft - walk;
+    };
+
+    const handleTouchEnd = () => setIsScrolling(true);
+
+    // Keyboard navigation
+    const handleKeyDown = (e) => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const step = e.shiftKey ? 200 : 80;
+        if (e.key === 'ArrowRight') {
+            el.scrollLeft += step;
+            e.preventDefault();
+        } else if (e.key === 'ArrowLeft') {
+            el.scrollLeft -= step;
+            e.preventDefault();
+        } else if (e.key === 'Home') {
+            el.scrollLeft = 0;
+            e.preventDefault();
+        } else if (e.key === 'End') {
+            el.scrollLeft = el.scrollWidth;
+            e.preventDefault();
+        }
+    };
 
     return (
         <div id="projects-section" className="relative min-h-screen flex flex-col items-center justify-start pt-16 px-4 overflow-hidden">
@@ -336,19 +412,32 @@ export default function Project() {
                 </div>
 
                 {/* Projects Horizontal Scroll Container */}
-                <div className="relative overflow-hidden rounded-3xl">
+        <div className="relative overflow-hidden rounded-3xl">
                     {/* Gradient overlays for fade effect */}
                     <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0B0B0F] to-transparent z-10 pointer-events-none"></div>
                     <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0B0B0F] to-transparent z-10 pointer-events-none"></div>
                     
                     <div 
                         id="projects-scroll-container"
-                        className="flex gap-8 overflow-x-hidden py-8 px-4"
-                        onMouseEnter={() => setIsScrolling(false)}
-                        onMouseLeave={() => setIsScrolling(true)}
+            ref={scrollRef}
+            role="region"
+            aria-label="Projects horizontal scroller"
+            tabIndex={0}
+                        className={`flex gap-8 overflow-x-auto overflow-y-hidden py-8 px-4 ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+            onMouseEnter={() => setIsScrolling(false)}
+            onMouseLeave={handleMouseLeave}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onWheel={handleWheel}
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                        onKeyDown={handleKeyDown}
                         style={{ 
                             scrollBehavior: 'auto',
-                            width: '100%'
+                            width: '100%',
+                            overscrollBehaviorX: 'contain'
                         }}
                     >
                         {extendedProjects.map((project, index) => (
