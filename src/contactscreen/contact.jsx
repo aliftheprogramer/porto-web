@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { showToast } from "../components/ui";
 
 export default function Contact() {
     const [isVisible, setIsVisible] = useState(false);
@@ -37,40 +38,63 @@ export default function Contact() {
         e.preventDefault();
         setIsSubmitting(true);
         
+        // Validate form
+        if (!formData.name || !formData.email || !formData.message) {
+            showToast('Please fill in all required fields', 'error', 3000);
+            setIsSubmitting(false);
+            return;
+        }
+        
+        // Show loading toast
+        showToast('Preparing to send your message...', 'info', 2000);
+        
         // Simulate form submission
         setTimeout(() => {
             const { name, email, subject, message } = formData;
             const mailtoUrl = `mailto:alifarya679@gmail.com?subject=${encodeURIComponent(subject || 'Contact from Portfolio')}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-            window.open(mailtoUrl, '_blank');
+            
+            try {
+                window.open(mailtoUrl, '_blank');
+                showToast('Email client opened! Thank you for reaching out 🚀', 'success', 4000);
+                
+                // Reset form
+                setFormData({ name: '', email: '', subject: '', message: '' });
+            } catch (error) {
+                showToast('Something went wrong. Please try again later.', 'error', 4000);
+            }
+            
             setIsSubmitting(false);
-        }, 1000);
+        }, 1500);
     };
 
     return (
-        <div id="contact-section" className="relative min-h-screen flex items-center justify-center px-4 py-16 overflow-hidden">
-            {/* Background animated elements */}
+        <div id="contact-section" className="relative min-h-screen flex items-center justify-center px-4 py-16 overflow-hidden particle-bg">
+            {/* Enhanced Background animated elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-cyan-400/5 to-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-r from-purple-600/5 to-cyan-400/5 rounded-full blur-3xl animate-pulse delay-700"></div>
-                <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-gradient-to-r from-blue-500/3 to-purple-600/3 rounded-full blur-2xl animate-pulse delay-1000"></div>
+                <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-cyan-400/5 to-blue-500/5 rounded-full blur-3xl animate-pulse reveal-morph-expand" data-parallax="0.15" data-morph="0.2" data-scale="0.1"></div>
+                <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-r from-purple-600/5 to-cyan-400/5 rounded-full blur-3xl animate-pulse delay-700 reveal-liquid-drop" data-parallax="0.2" data-glitch="0.02" data-rotate="0.05"></div>
+                <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-gradient-to-r from-blue-500/3 to-purple-600/3 rounded-full blur-2xl animate-pulse delay-1000 reveal-particles" data-parallax="0.25" data-fade="0.3"></div>
+                {/* Additional enhanced particle elements */}
+                <div className="absolute top-1/4 right-1/4 w-10 h-10 bg-purple-400/15 rounded-full reveal-glass-shatter" data-parallax="0.4"></div>
+                <div className="absolute bottom-1/4 left-1/4 w-8 h-8 bg-cyan-400/20 rounded-full reveal-wave-distort" data-parallax="-0.3"></div>
+                <div className="absolute top-3/4 right-1/3 w-6 h-6 bg-pink-400/25 rounded-full reveal-origami" data-parallax="0.5"></div>
             </div>
 
-            <div className={`relative z-10 w-full max-w-7xl mx-auto transition-all duration-1000 ${isVisible ? 'animate-fadeInUp' : 'opacity-0 translate-y-20'}`}>
-                {/* Header */}
-                <div className="text-center mb-16">
-                    <h2 className="text-5xl lg:text-6xl font-bold gradient-text mb-6">
+            <div className={`relative z-10 w-full max-w-7xl mx-auto transition-all duration-1000 ${isVisible ? 'animate-fadeInUp' : 'opacity-0 translate-y-20'} reveal-paper-tear-top`}>
+                {/* Enhanced Header */}
+                <div className="text-center mb-16 reveal-flip">
+                    <h2 className="text-5xl lg:text-6xl font-bold gradient-text mb-6 reveal-origami" data-morph="0.03">
                         Let's Work Together
                     </h2>
-                    <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                    <p className="text-xl text-gray-300 max-w-2xl mx-auto reveal-glass-shatter">
                         Have a project in mind? I'd love to hear from you. Send me a message and let's create something amazing together.
                     </p>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-12 items-start">
-                    {/* Contact Info */}
-                    <div className={`space-y-8 transition-all duration-1000 delay-200 ${isVisible ? 'animate-fadeInLeft' : 'opacity-0 -translate-x-20'}`}>
-                        {/* Contact methods */}
-                        <div className="space-y-6">
+                <div className="grid lg:grid-cols-2 gap-12 items-start reveal-stagger-advanced">
+                    {/* Enhanced Contact Info */}
+                    <div className={`space-y-8 transition-all duration-1000 delay-200 ${isVisible ? 'animate-fadeInLeft' : 'opacity-0 -translate-x-20'} reveal-liquid-drop`} data-scale="0.05" data-parallax="0.1">{/* Contact methods */}
+                        <div className="space-y-6 reveal-wave-distort">
                             <ContactMethod
                                 icon={<img src="https://img.icons8.com/fluency/48/new-post.png" alt="email" className="w-6 h-6" />}
                                 title="Email"

@@ -45,9 +45,12 @@ function ProjectCard({ image, title, desc, technologies, icons, category, liveLi
 
     return (
         <div 
-            className="relative group h-full reveal-paper"
+            className="relative group h-full reveal-flip"
+            data-scale="0.05"
+            data-rotate="0.02"
+            data-morph="0.1"
         >
-            {/* Glowing background effect */}
+            {/* Enhanced glowing background effect with particle animation */}
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-all duration-500 pointer-events-none"></div>
             
             <div className="relative z-10 glass-dark rounded-3xl overflow-hidden h-[500px] flex flex-col">
@@ -327,29 +330,31 @@ export default function Project() {
     };
 
     return (
-        <div id="projects-section" className="relative min-h-screen flex flex-col items-center justify-start pt-16 px-4 overflow-hidden parallax-container section-transition">
-            {/* Background animated elements */}
+        <div id="projects-section" className="relative min-h-screen flex flex-col items-center justify-start pt-16 px-4 overflow-hidden parallax-container section-transition particle-bg">
+            {/* Enhanced background animated elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-500/5 to-purple-600/5 rounded-full blur-3xl animate-pulse" data-parallax="0.12" data-scale="0.08"></div>
-                <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-cyan-400/5 to-blue-500/5 rounded-full blur-3xl animate-pulse delay-700" data-parallax="0.15" data-rotate="0.05"></div>
-                {/* Additional depth layers */}
-                <div className="absolute top-1/2 left-1/4 w-48 h-48 border border-cyan-400/10 rounded-full" data-parallax="0.28" data-rotate="0.12"></div>
-                <div className="absolute bottom-1/4 right-1/3 w-36 h-36 border border-purple-600/10 rounded-full" data-parallax="0.32" data-rotate="-0.1"></div>
+                <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-500/5 to-purple-600/5 rounded-full blur-3xl animate-pulse reveal-morph-expand" data-parallax="0.12" data-scale="0.08" data-morph="0.15"></div>
+                <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-cyan-400/5 to-blue-500/5 rounded-full blur-3xl animate-pulse delay-700 reveal-liquid-drop" data-parallax="0.15" data-rotate="0.05" data-glitch="0.02"></div>
+                {/* Enhanced depth layers with advanced animations */}
+                <div className="absolute top-1/2 left-1/4 w-48 h-48 border border-cyan-400/10 rounded-full reveal-wave-distort" data-parallax="0.28" data-rotate="0.12" data-fade="0.3"></div>
+                <div className="absolute bottom-1/4 right-1/3 w-36 h-36 border border-purple-600/10 rounded-full reveal-glass-shatter" data-parallax="0.32" data-rotate="-0.1" data-scale="0.2"></div>
+                {/* New particle elements */}
+                <div className="absolute top-1/3 right-20 w-6 h-6 bg-cyan-400/20 rounded-full reveal-particles" data-parallax="0.5"></div>
+                <div className="absolute bottom-1/2 left-20 w-4 h-4 bg-purple-400/30 rounded-full reveal-particles" data-parallax="-0.4"></div>
             </div>
 
-            <div className={`relative z-10 w-full max-w-7xl mx-auto ${isVisible ? 'is-visible' : ''} reveal-slide-bottom`}>
-                {/* Header */}
-                <div className="text-center mb-16 reveal-cascade">
-                    <h2 className="text-5xl lg:text-6xl font-bold gradient-text mb-6 cascade-item">
+            <div className={`relative z-10 w-full max-w-7xl mx-auto ${isVisible ? 'is-visible' : ''} reveal-paper-tear-top`}>
+                {/* Enhanced Header */}
+                <div className="text-center mb-16 reveal-origami">
+                    <h2 className="text-5xl lg:text-6xl font-bold gradient-text mb-6 reveal-flip" data-morph="0.03">
                         Featured Projects
                     </h2>
-                    <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-10 cascade-item">
+                    <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-10 reveal-glass-shatter">
                         Discover the innovative solutions I've crafted with passion and precision
                     </p>
 
-                    {/* Filter buttons */}
-                    <div className="flex flex-wrap justify-center gap-4 mb-8 reveal-stagger">
-                        {categories.map((category, index) => {
+                    {/* Enhanced Filter buttons */}
+                    <div className="flex flex-wrap justify-center gap-4 mb-8 reveal-stagger-advanced">{categories.map((category, index) => {
                             const getFilterInfo = (cat) => {
                                 switch(cat) {
                                     case 'all':

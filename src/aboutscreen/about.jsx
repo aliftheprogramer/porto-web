@@ -23,19 +23,22 @@ export default function About() {
 
     return (
         <div id="about-section" className="relative min-h-screen flex flex-col items-center justify-center pt-16 px-4 gap-y-16 overflow-hidden parallax-container section-transition">
-            {/* Background animated elements */}
+            {/* Enhanced background animated elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-r from-cyan-400/5 to-blue-500/5 rounded-full blur-3xl animate-pulse" data-parallax="0.15" data-scale="0.1"></div>
-                <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-r from-purple-600/5 to-cyan-400/5 rounded-full blur-3xl animate-pulse delay-1000" data-parallax="0.18" data-rotate="0.05"></div>
-                {/* Additional floating elements */}
-                <div className="absolute top-1/3 left-10 w-40 h-40 border border-cyan-400/10 rounded-full" data-parallax="0.25" data-rotate="0.08"></div>
-                <div className="absolute bottom-1/3 right-16 w-28 h-28 border border-purple-600/10 rounded-full" data-parallax="0.22" data-rotate="-0.06"></div>
+                <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-r from-cyan-400/5 to-blue-500/5 rounded-full blur-3xl animate-pulse reveal-morph-expand" data-parallax="0.15" data-scale="0.1" data-morph="0.1"></div>
+                <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-r from-purple-600/5 to-cyan-400/5 rounded-full blur-3xl animate-pulse delay-1000 reveal-liquid-drop" data-parallax="0.18" data-rotate="0.05" data-fade="0.2"></div>
+                {/* Additional floating elements with advanced animations */}
+                <div className="absolute top-1/3 left-10 w-40 h-40 border border-cyan-400/10 rounded-full reveal-wave-distort" data-parallax="0.25" data-rotate="0.08" data-glitch="0.05"></div>
+                <div className="absolute bottom-1/3 right-16 w-28 h-28 border border-purple-600/10 rounded-full reveal-glass-shatter" data-parallax="0.22" data-rotate="-0.06" data-scale="0.15"></div>
+                {/* New particle elements */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-cyan-400/30 rounded-full reveal-particles" data-parallax="0.4"></div>
+                <div className="absolute top-1/4 right-1/4 w-1 h-1 bg-purple-400/40 rounded-full reveal-particles" data-parallax="-0.3"></div>
             </div>
             
-            <div className="relative z-10 reveal-slide-bottom">
+            <div className="relative z-10 reveal-paper-tear-left">
                 <AboutMe />
             </div>
-            <div className="relative z-10 reveal-slide-bottom">
+            <div className="relative z-10 reveal-flip">
                 <Skills />
             </div>
         </div>
@@ -167,42 +170,45 @@ function Skills() {
                     <div className="flex-1 h-1 bg-gradient-to-r from-purple-600 to-transparent rounded-full"></div>
                 </div>
 
-                {/* Skills organized by category */}
+                {/* Skills organized by category with advanced animations */}
                 <div className="space-y-12">
                     {categories.map((category, categoryIndex) => (
-                        <div key={category} className="space-y-6 reveal-up">
-                            <h3 className="text-2xl font-semibold text-cyan-400 flex items-center gap-3">
-                                <span className="w-2 h-8 bg-gradient-to-b from-cyan-400 to-purple-600 rounded-full"></span>
+                        <div key={category} className="space-y-6 reveal-paper-tear-right">
+                            <h3 className="text-2xl font-semibold text-cyan-400 flex items-center gap-3 reveal-morph-expand">
+                                <span className="w-2 h-8 bg-gradient-to-b from-cyan-400 to-purple-600 rounded-full" data-scale="0.2"></span>
                                 {category}
                             </h3>
                             
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-4 reveal-stagger">
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-4 reveal-stagger-advanced">
                                 {techStack
                                     .filter(skill => skill.category === category)
                                     .map((skill, index) => (
                                     <button
                                         key={skill.name}
                                         type="button"
-                                        className="relative group w-full text-left glass rounded-xl p-4 hover:bg-gradient-to-r hover:from-cyan-400/5 hover:to-purple-600/5 transition-all duration-300 hover-lift border hover:border-cyan-400/30 focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:outline-none"
+                                        className="relative group w-full text-left glass rounded-xl p-4 hover:bg-gradient-to-r hover:from-cyan-400/5 hover:to-purple-600/5 transition-all duration-300 hover-lift border hover:border-cyan-400/30 focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 focus:outline-none reveal-flip"
                                         onMouseEnter={() => setHoveredSkill(skill.name)}
                                         onMouseLeave={() => setHoveredSkill(null)}
                                         onFocus={() => setHoveredSkill(skill.name)}
                                         onBlur={() => setHoveredSkill(null)}
                                         onClick={() => setHoveredSkill(hoveredSkill === skill.name ? null : skill.name)}
                                         aria-label={`${skill.name} skill - ${skill.level}% proficiency`}
+                                        data-rotate="0.1"
+                                        data-scale="0.05"
                                         // inline delays will be assigned by reveal-stagger when visible
                                     >
-                                        {/* Skill card content */}
-                                        <div>
+                                        {/* Enhanced skill card content */}
+                                        <div className="reveal-liquid-drop">
                                             <div className="flex flex-col items-center text-center gap-3 mb-3">
                                                 <div className="relative">
                                                     <img
                                                         src={skill.image}
                                                         alt={skill.name}
                                                         className="w-10 h-10 group-hover:scale-110 transition-transform duration-300"
+                                                        data-morph="0.1"
                                                     />
                                                     {hoveredSkill === skill.name && (
-                                                        <div className="absolute -inset-2 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full blur-md opacity-30 animate-pulse"></div>
+                                                        <div className="absolute -inset-2 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full blur-md opacity-30 animate-pulse reveal-particles"></div>
                                                     )}
                                                 </div>
                                                 <div>
@@ -213,13 +219,15 @@ function Skills() {
                                                 </div>
                                             </div>
 
-                                            {/* Progress bar */}
-                                            <div className="w-full bg-gray-700 rounded-full h-1.5 overflow-hidden">
+                                            {/* Enhanced progress bar with animation */}
+                                            <div className="w-full bg-gray-700 rounded-full h-1.5 overflow-hidden reveal-wave-distort">
                                                 <div
                                                     className="h-full bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full transition-all duration-1000 ease-out"
                                                     style={{
                                                         width: isAnimating ? `${skill.level}%` : '0%',
-                                                        boxShadow: hoveredSkill === skill.name ? '0 0 15px rgba(0, 168, 232, 0.4)' : 'none'
+                                                        boxShadow: hoveredSkill === skill.name ? '0 0 15px rgba(0, 168, 232, 0.4)' : 'none',
+                                                        transform: hoveredSkill === skill.name ? 'scaleY(1.5)' : 'scaleY(1)',
+                                                        filter: hoveredSkill === skill.name ? 'drop-shadow(0 0 10px rgba(0, 168, 232, 0.6))' : 'none'
                                                     }}
                                                 ></div>
                                             </div>
@@ -231,12 +239,12 @@ function Skills() {
                     ))}
                 </div>
 
-                {/* Bottom decorative element */}
+                {/* Enhanced bottom decorative element */}
                 <div className="flex justify-center mt-12">
-                    <div className="flex items-center gap-3 glass px-6 py-3 rounded-full">
-                        <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
+                    <div className="flex items-center gap-3 glass px-6 py-3 rounded-full reveal-origami" data-parallax="0.1" data-glitch="0.05">
+                        <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse reveal-particles"></div>
                         <span className="text-gray-300 font-medium">Always learning new technologies</span>
-                        <div className="w-3 h-3 bg-purple-600 rounded-full animate-pulse delay-500"></div>
+                        <div className="w-3 h-3 bg-purple-600 rounded-full animate-pulse delay-500 reveal-particles"></div>
                     </div>
                 </div>
             </div>

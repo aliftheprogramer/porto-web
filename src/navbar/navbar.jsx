@@ -24,26 +24,26 @@ function Navbar({ setActivePage }) {
             scrolled 
                 ? 'bg-[#0B0B0F]/90 backdrop-blur-md border-b border-cyan-400/20 shadow-lg shadow-cyan-400/10' 
                 : 'bg-[#0B0B0F]/70 backdrop-blur border-b border-white/10'
-        }`}>
+        }`} data-glitch="0.01">
             <div className="max-w-6xl mx-auto h-16 flex items-center justify-between px-6">
-                {/* Logo dengan efek gradient */}
-                <div className="relative group">
-                    <div className="font-bold text-2xl bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                {/* Enhanced Logo dengan efek gradient dan animasi */}
+                <div className="relative group reveal-morph-expand" data-scale="0.02">
+                    <div className="font-bold text-2xl bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent hover:animate-text-glow">
                         alif.kt
                     </div>
-                    <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-lg blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-lg blur opacity-30 group-hover:opacity-60 transition duration-300 reveal-particles"></div>
                 </div>
 
-                {/* Desktop Menu dengan animasi */}
-                <ul className="hidden md:flex gap-8 text-sm">
+                {/* Enhanced Desktop Menu dengan animasi scroll */}
+                <ul className="hidden md:flex gap-8 text-sm reveal-stagger-advanced">
                     {links.map((l, index) => (
-                        <li key={l.href} className="relative group" style={{ animationDelay: `${index * 100}ms` }}>
+                        <li key={l.href} className="relative group reveal-flip" style={{ animationDelay: `${index * 100}ms` }} data-rotate="0.01" data-morph="0.02">
                             <a
                                 href={l.href}
                                 className="relative px-3 py-2 text-gray-300 hover:text-white transition-all duration-300 hover:scale-105"
                             >
                                 {l.label}
-                                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-600 transition-all duration-300 group-hover:w-full"></span>
+                                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-600 transition-all duration-300 group-hover:w-full reveal-wave-distort"></span>
                             </a>
                         </li>
                     ))}

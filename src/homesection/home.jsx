@@ -17,30 +17,34 @@ export default function Home() {
 
     return (
         <div className="relative min-h-screen flex flex-col items-center justify-center pt-16 px-4 overflow-hidden parallax-container">
-            {/* Enhanced Background Elements with parallax */}
+            {/* Enhanced Background Elements with advanced parallax */}
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800 parallax-layer"></div>
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-400 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob" data-parallax="0.3" data-rotate="0.05"></div>
-            <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-2000" data-parallax="0.2" data-scale="0.1"></div>
-            <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-4000" data-parallax="0.25" data-fade="0.3"></div>
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-400 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob reveal-morph-expand" data-parallax="0.3" data-rotate="0.05" data-morph="0.2"></div>
+            <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-2000 reveal-liquid-drop" data-parallax="0.2" data-scale="0.1" data-glitch="0.03"></div>
+            <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-4000 reveal-particles" data-parallax="0.25" data-fade="0.3"></div>
             
-            {/* Additional floating elements */}
-            <div className="absolute top-20 right-20 w-32 h-32 border border-cyan-400/20 rounded-full" data-parallax="0.4" data-rotate="0.1"></div>
-            <div className="absolute bottom-32 left-16 w-24 h-24 border border-purple-600/20 rounded-full" data-parallax="0.35" data-rotate="-0.08"></div>
+            {/* Enhanced floating elements with advanced animations */}
+            <div className="absolute top-20 right-20 w-32 h-32 border border-cyan-400/20 rounded-full reveal-glass-shatter" data-parallax="0.4" data-rotate="0.1" data-scale="0.15"></div>
+            <div className="absolute bottom-32 left-16 w-24 h-24 border border-purple-600/20 rounded-full reveal-wave-distort" data-parallax="0.35" data-rotate="-0.08" data-morph="0.1"></div>
+            {/* Additional particle elements */}
+            <div className="absolute top-1/2 left-10 w-4 h-4 bg-cyan-400/30 rounded-full reveal-particles" data-parallax="0.6"></div>
+            <div className="absolute top-1/3 right-10 w-3 h-3 bg-purple-400/40 rounded-full reveal-particles" data-parallax="-0.4"></div>
+            <div className="absolute bottom-1/3 right-1/3 w-2 h-2 bg-blue-400/50 rounded-full reveal-particles" data-parallax="0.5"></div>
 
-            <div className="relative max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center reveal-stagger">
-                {/* Left Content - Text */}
-                <div className="space-y-8 reveal-slide-left">
-                    {/* Simple Typing Animation */}
+            <div className="relative max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center reveal-stagger-advanced">
+                {/* Enhanced Left Content - Text */}
+                <div className="space-y-8 reveal-paper-tear-left">
+                    {/* Enhanced Typing Animation */}
                     <div className="space-y-6">
-                        <div className="h-32 flex items-center relative">
-                            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-400/10 to-purple-600/10 rounded-xl blur-xl" data-parallax="0.1"></div>
+                        <div className="h-32 flex items-center relative reveal-origami">
+                            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-400/10 to-purple-600/10 rounded-xl blur-xl reveal-particles" data-parallax="0.1" data-scale="0.1"></div>
                             <div className="relative">
-                                <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-white via-cyan-300 to-purple-300 bg-clip-text text-transparent">
+                                <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-white via-cyan-300 to-purple-300 bg-clip-text text-transparent reveal-flip" data-morph="0.05">
                                     {typingState.currentText}
-                                    <span className="animate-pulse text-cyan-400 ml-1">|</span>
+                                    <span className="animate-pulse text-cyan-400 ml-1 reveal-glass-shatter">|</span>
                                 </h1>
-                                {/* Status Indicator */}
-                                <div className="mt-2">
+                                {/* Enhanced Status Indicator */}
+                                <div className="mt-2 reveal-wave-distort">
                                     <span className="text-sm text-gray-500 font-medium">
                                         {typingState.status}
                                     </span>
