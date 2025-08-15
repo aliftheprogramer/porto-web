@@ -180,6 +180,70 @@ body {
     50% { opacity: 1; transform: scale(1.2); }
 }
 
+/* Enhanced entrance animations for initial page load */
+@keyframes pageEnter {
+    from { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.95); 
+        filter: blur(4px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+        filter: blur(0); 
+    }
+}
+
+@keyframes slideInFromLeft {
+    from { 
+        opacity: 0; 
+        transform: translateX(-50px) rotate(-5deg); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateX(0) rotate(0); 
+    }
+}
+
+@keyframes slideInFromRight {
+    from { 
+        opacity: 0; 
+        transform: translateX(50px) rotate(5deg); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateX(0) rotate(0); 
+    }
+}
+
+@keyframes scaleInBounce {
+    0% { 
+        opacity: 0; 
+        transform: scale(0.3) rotate(15deg); 
+    }
+    50% { 
+        opacity: 0.8; 
+        transform: scale(1.1) rotate(-5deg); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1) rotate(0); 
+    }
+}
+
+@keyframes fadeInWithBlur {
+    from { 
+        opacity: 0; 
+        filter: blur(10px); 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        filter: blur(0); 
+        transform: translateY(0); 
+    }
+}
+
 /* Animation classes */
 .animate-fadeInUp {
     animation: fadeInUp 0.8s ease-out forwards;
@@ -195,6 +259,27 @@ body {
 
 .animate-float {
     animation: float 6s ease-in-out infinite;
+}
+
+/* Enhanced entrance animation classes */
+.animate-pageEnter {
+    animation: pageEnter 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.animate-slideInFromLeft {
+    animation: slideInFromLeft 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.animate-slideInFromRight {
+    animation: slideInFromRight 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.animate-scaleInBounce {
+    animation: scaleInBounce 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.animate-fadeInWithBlur {
+    animation: fadeInWithBlur 1s ease-out forwards;
 }
 
 .animate-pulse-glow {

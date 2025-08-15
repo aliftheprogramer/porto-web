@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 /**
- * Custom hook for typing animation effect
+ * Optimized typing animation hook
  * @param {string[]} roles - Array of roles to cycle through
  * @param {object} options - Configuration options
  * @returns {object} - Current typing state
  */
 export const useTypingAnimation = (roles, options = {}) => {
     const {
-        typingSpeed = 100,
-        deletingSpeed = 50,
-        pauseDuration = 2000,
-        pauseBeforeNext = 500
+        typingSpeed = 150,
+        deletingSpeed = 100,
+        pauseDuration = 1500,
+        pauseBeforeNext = 300
     } = options;
 
     const [currentText, setCurrentText] = useState("");
@@ -19,46 +19,33 @@ export const useTypingAnimation = (roles, options = {}) => {
     const [isTyping, setIsTyping] = useState(true);
     const [charIndex, setCharIndex] = useState(0);
 
-    useEffect(() => {
+    const updateText = useCallback(() => {
         const currentRole = roles[currentIndex];
         
         if (isTyping) {
-            // Typing forward
             if (charIndex < currentRole.length) {
-                const timer = setTimeout(() => {
-                    setCurrentText(currentRole.slice(0, charIndex + 1));
-                    setCharIndex(charIndex + 1);
-                }, typingSpeed + Math.random() * 100);
-                
-                return () => clearTimeout(timer);
+                setCurrentText(currentRole.slice(0, charIndex + 1));
+                setCharIndex(prev => prev + 1);
             } else {
-                // Pause before deleting
-                const timer = setTimeout(() => {
-                    setIsTyping(false);
-                }, pauseDuration);
-                
-                return () => clearTimeout(timer);
+                setTimeout(() => setIsTyping(false), pauseDuration);
             }
         } else {
-            // Deleting
             if (charIndex > 0) {
-                const timer = setTimeout(() => {
-                    setCurrentText(currentRole.slice(0, charIndex - 1));
-                    setCharIndex(charIndex - 1);
-                }, deletingSpeed + Math.random() * 50);
-                
-                return () => clearTimeout(timer);
-            } else {
-                // Move to next role
-                const timer = setTimeout(() => {
+                setCurrentText(currentRole.slice(0, charIndex - 1));
+                setCharIndex(prev => prev - 1);
+                setTimeout(() => {
                     setCurrentIndex((currentIndex + 1) % roles.length);
                     setIsTyping(true);
                 }, pauseBeforeNext);
-                
-                return () => clearTimeout(timer);
             }
         }
     }, [charIndex, currentIndex, isTyping, roles, typingSpeed, deletingSpeed, pauseDuration, pauseBeforeNext]);
+
+    useEffect(() => {
+        const speed = isTyping ? typingSpeed : deletingSpeed;
+        const timer = setTimeout(updateText, speed);
+        return () => clearTimeout(timer);
+    }, [updateText, isTyping, typingSpeed, deletingSpeed]);
 
     return {
         currentText,
