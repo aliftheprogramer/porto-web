@@ -12,7 +12,7 @@ export const PROJECTS_DATA = [
     icons: [
       {
         type: "github",
-        link: "https://github.com/aliftheprogramer/hoptima",
+        link: "https://github.com/Hoptima/android",
       },
       {
         type: "linkedin",
@@ -33,12 +33,12 @@ export const PROJECTS_DATA = [
     icons: [
       {
         type: "github",
-        link: "https://github.com/aliftheprogramer/portfolio",
+        link: "https://github.com/aliftheprogramer/porto-web",
       },
     ],
   },
   {
-    title: "Flood Alert",
+    title: "Flood Track",
     description:
       "Mobile application for real-time flood monitoring and alerts.",
     technologies: ["Flutter", "hiveMQ", "Google Maps API"],
@@ -50,7 +50,7 @@ export const PROJECTS_DATA = [
     icons: [
       {
         type: "github",
-        link: "https://github.com/aliftheprogramer/banjir-alert",
+        link: "https://github.com/aliftheprogramer/flood-track",
       },
     ],
   },
