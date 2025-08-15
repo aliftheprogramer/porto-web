@@ -16,20 +16,24 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="relative min-h-screen flex flex-col items-center justify-center pt-16 px-4 overflow-hidden">
-            {/* Background Elements */}
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800"></div>
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-400 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob"></div>
-            <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-2000"></div>
-            <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-4000"></div>
+        <div className="relative min-h-screen flex flex-col items-center justify-center pt-16 px-4 overflow-hidden parallax-container">
+            {/* Enhanced Background Elements with parallax */}
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800 parallax-layer"></div>
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-400 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob" data-parallax="0.3" data-rotate="0.05"></div>
+            <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-2000" data-parallax="0.2" data-scale="0.1"></div>
+            <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-4000" data-parallax="0.25" data-fade="0.3"></div>
+            
+            {/* Additional floating elements */}
+            <div className="absolute top-20 right-20 w-32 h-32 border border-cyan-400/20 rounded-full" data-parallax="0.4" data-rotate="0.1"></div>
+            <div className="absolute bottom-32 left-16 w-24 h-24 border border-purple-600/20 rounded-full" data-parallax="0.35" data-rotate="-0.08"></div>
 
-            <div className="relative max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <div className="relative max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center reveal-stagger">
                 {/* Left Content - Text */}
-                <div className={`space-y-8 ${isVisible ? 'animate-fadeInLeft' : 'opacity-0'}`}>
+                <div className="space-y-8 reveal-slide-left">
                     {/* Simple Typing Animation */}
                     <div className="space-y-6">
                         <div className="h-32 flex items-center relative">
-                            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-400/10 to-purple-600/10 rounded-xl blur-xl"></div>
+                            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-400/10 to-purple-600/10 rounded-xl blur-xl" data-parallax="0.1"></div>
                             <div className="relative">
                                 <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-white via-cyan-300 to-purple-300 bg-clip-text text-transparent">
                                     {typingState.currentText}
@@ -46,19 +50,19 @@ export default function Home() {
                     </div>
 
                     {/* Description */}
-                    <p className="text-lg text-gray-400 max-w-2xl leading-relaxed">
+                    <p className="text-lg text-gray-400 max-w-2xl leading-relaxed reveal-slide-bottom">
                         Passionate developer with expertise in creating modern web and mobile applications. 
                         I love turning creative ideas into functional, beautiful digital solutions that make a difference.
                     </p>
 
                     {/* CTA Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4">
-                        <button className="group relative px-8 py-4 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-xl text-white font-semibold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25">
+                    <div className="flex flex-col sm:flex-row gap-4 reveal-stagger">
+                        <button className="group relative px-8 py-4 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-xl text-white font-semibold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25" data-parallax="0.05">
                             <span className="relative z-10">View My Work</span>
                             <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-cyan-400 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </button>
                         
-                        <button className="group px-8 py-4 border-2 border-gray-600 rounded-xl text-gray-300 font-semibold hover:border-cyan-500 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10">
+                        <button className="group px-8 py-4 border-2 border-gray-600 rounded-xl text-gray-300 font-semibold hover:border-cyan-500 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10" data-parallax="0.05">
                             <span className="flex items-center gap-2">
                                 <img src="https://img.icons8.com/fluency/24/phone.png" alt="contact" className="w-5 h-5" />
                                 Contact Me
@@ -67,30 +71,30 @@ export default function Home() {
                     </div>
 
                     {/* Social Links */}
-                    <div className="flex gap-4 pt-4">
-                        <a href="#" className="p-3 bg-gray-800 rounded-xl hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-600 transition-all duration-300 hover:scale-110">
+                    <div className="flex gap-4 pt-4 reveal-stagger">
+                        <a href="#" className="p-3 bg-gray-800 rounded-xl hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-600 transition-all duration-300 hover:scale-110" data-parallax="0.02">
                             <img src="https://img.icons8.com/fluency/24/github.png" alt="github" className="w-6 h-6" />
                         </a>
-                        <a href="#" className="p-3 bg-gray-800 rounded-xl hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-600 transition-all duration-300 hover:scale-110">
+                        <a href="#" className="p-3 bg-gray-800 rounded-xl hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-600 transition-all duration-300 hover:scale-110" data-parallax="0.02">
                             <img src="https://img.icons8.com/fluency/24/linkedin.png" alt="linkedin" className="w-6 h-6" />
                         </a>
-                        <a href="#" className="p-3 bg-gray-800 rounded-xl hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-600 transition-all duration-300 hover:scale-110">
+                        <a href="#" className="p-3 bg-gray-800 rounded-xl hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-600 transition-all duration-300 hover:scale-110" data-parallax="0.02">
                             <img src="https://img.icons8.com/fluency/24/twitter.png" alt="twitter" className="w-6 h-6" />
                         </a>
-                        <a href="#" className="p-3 bg-gray-800 rounded-xl hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-600 transition-all duration-300 hover:scale-110">
+                        <a href="#" className="p-3 bg-gray-800 rounded-xl hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-600 transition-all duration-300 hover:scale-110" data-parallax="0.02">
                             <img src="https://img.icons8.com/?size=100&id=Xy10Jcu1L2Su&format=png&color=000000https://icons8.com/icon/Xy10Jcu1L2Su/instagram.png" alt="instagram" className="w-6 h-6" />
                         </a>
                     </div>
                 </div>
 
                 {/* Right Content - Image */}
-                <div className={`relative ${isVisible ? 'animate-fadeInRight' : 'opacity-0'}`}>
+                <div className="relative reveal-slide-right">
                     <div className="relative">
                         {/* Glowing background */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-3xl blur-xl opacity-20 animate-pulse-glow"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-3xl blur-xl opacity-20 animate-pulse-glow" data-parallax="0.1"></div>
                         
                         {/* Profile Image Container */}
-                        <div className="relative glass-dark rounded-3xl p-8 hover-lift">
+                        <div className="relative glass-dark rounded-3xl p-8 hover-lift" data-scale="0.05">
                             <div className="relative overflow-hidden rounded-2xl">
                                 <img
                                     src="/images/alipganteng.jpg"
@@ -101,13 +105,13 @@ export default function Home() {
                             </div>
                             
                             {/* Decorative elements */}
-                            <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full opacity-20 animate-float"></div>
-                            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-r from-purple-600 to-cyan-400 rounded-full opacity-15 animate-float" style={{animationDelay: '2s'}}></div>
+                            <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full opacity-20 animate-float" data-parallax="0.15" data-rotate="0.1"></div>
+                            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-r from-purple-600 to-cyan-400 rounded-full opacity-15 animate-float" style={{animationDelay: '2s'}} data-parallax="0.12" data-rotate="-0.08"></div>
                         </div>
                     </div>
 
-                    {/* Floating stats dengan animasi counter */}
-                    <div className="absolute top-8 -left-8 glass p-4 rounded-2xl hover-lift group">
+                    {/* Floating stats dengan animasi counter - enhanced with parallax */}
+                    <div className="absolute top-8 -left-8 glass p-4 rounded-2xl hover-lift group reveal-zoom-rotate" data-parallax="0.08">
                         <div className="text-center">
                             <div className="text-2xl font-bold gradient-text group-hover:scale-110 transition-transform duration-300">
                                 {experienceCount}+
@@ -117,7 +121,7 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className="absolute bottom-8 -right-8 glass p-4 rounded-2xl hover-lift group">
+                    <div className="absolute bottom-8 -right-8 glass p-4 rounded-2xl hover-lift group reveal-zoom-rotate" data-parallax="0.06">
                         <div className="text-center">
                             <div className="text-2xl font-bold gradient-text group-hover:scale-110 transition-transform duration-300">
                                 {projectCount}+
@@ -127,7 +131,7 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className="absolute top-1/2 -left-12 glass p-3 rounded-2xl hover-lift group">
+                    <div className="absolute top-1/2 -left-12 glass p-3 rounded-2xl hover-lift group reveal-zoom-rotate" data-parallax="0.07">
                         <div className="text-center">
                             <div className="text-lg font-bold gradient-text group-hover:scale-110 transition-transform duration-300">
                                 {skillCount}+
@@ -139,8 +143,8 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            {/* Enhanced Scroll indicator with parallax */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce reveal-slide-bottom" data-parallax="0.3">
                 <div className="flex flex-col items-center gap-2 text-gray-400">
                     <span className="text-sm">Scroll down</span>
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,29 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./navbar/navbar";
 import Home from "./homesection/home";
 import About from "./aboutscreen/about";
 import Project from "./projectscreen/project";
 import Contact from "./contactscreen/contact";
+import { initScrollReveal, initParallax } from "./utils/scrollReveal";
 
 export default function App() {
+  useEffect(() => {
+    // initialize scroll reveal for elements with .reveal-paper
+  const disposeReveal = initScrollReveal();
+  const disposeParallax = initParallax();
+  return () => { disposeReveal?.(); disposeParallax?.(); };
+  }, []);
   return (
     <div className="min-h-screen bg-[#0B0B0F] text-white overflow-x-hidden">
       <Navbar />
       <main className="px-4">
         {/* scroll-mt-24: beri jarak saat scroll karena navbar fixed */}
-        <section id="home" className="scroll-mt-24">
+        <section id="home" className="scroll-mt-24 relative reveal-paper">
           <Home />
         </section>
 
-        <section id="about" className="scroll-mt-24">
+        <section id="about" className="scroll-mt-24 relative reveal-slide-left">
           <About />
         </section>
 
-        <section id="projects" className="scroll-mt-24">
+        <section id="projects" className="scroll-mt-24 relative reveal-slide-right">
           <Project />
         </section>
 
-        <section id="contact" className="scroll-mt-24">
+        <section id="contact" className="scroll-mt-24 relative reveal-zoom-rotate">
           <Contact />
         </section>
       </main>

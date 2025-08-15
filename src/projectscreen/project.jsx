@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import PropTypes from 'prop-types';
 import { PROJECTS_DATA as projects } from "../data";
 
 // Project Card Component untuk horizontal scroll
 function ProjectCard({ image, title, desc, technologies, icons, category, liveLink, githubLink }) {
-    const [isHovered, setIsHovered] = useState(false);
 
     const getCategoryInfo = (cat) => {
         switch(cat) {
@@ -45,9 +45,7 @@ function ProjectCard({ image, title, desc, technologies, icons, category, liveLi
 
     return (
         <div 
-            className="relative group h-full"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            className="relative group h-full reveal-paper"
         >
             {/* Glowing background effect */}
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-all duration-500 pointer-events-none"></div>
@@ -171,14 +169,26 @@ function ProjectCard({ image, title, desc, technologies, icons, category, liveLi
                     </div>
                 </div>
 
-                {/* Hover effect overlay (visual only, don't block clicks) */}
-                <div className={`absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-purple-600/10 transition-all duration-500 rounded-3xl pointer-events-none ${
-                    isHovered ? 'opacity-100' : 'opacity-0'
-                }`}></div>
+                                {/* Hover effect overlay (visual only, don't block clicks) */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-purple-600/10 transition-all duration-500 rounded-3xl pointer-events-none opacity-0 group-hover:opacity-100"></div>
             </div>
         </div>
     );
 }
+
+ProjectCard.propTypes = {
+    image: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    desc: PropTypes.string.isRequired,
+    technologies: PropTypes.arrayOf(PropTypes.string),
+    icons: PropTypes.arrayOf(PropTypes.shape({
+        type: PropTypes.string.isRequired,
+        link: PropTypes.string,
+    })),
+    category: PropTypes.string.isRequired,
+    liveLink: PropTypes.string,
+    githubLink: PropTypes.string,
+};
 
 export default function Project() {
     const [isVisible, setIsVisible] = useState(false);
@@ -317,25 +327,28 @@ export default function Project() {
     };
 
     return (
-        <div id="projects-section" className="relative min-h-screen flex flex-col items-center justify-start pt-16 px-4 overflow-hidden">
+        <div id="projects-section" className="relative min-h-screen flex flex-col items-center justify-start pt-16 px-4 overflow-hidden parallax-container section-transition">
             {/* Background animated elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-500/5 to-purple-600/5 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-cyan-400/5 to-blue-500/5 rounded-full blur-3xl animate-pulse delay-700"></div>
+                <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-500/5 to-purple-600/5 rounded-full blur-3xl animate-pulse" data-parallax="0.12" data-scale="0.08"></div>
+                <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-cyan-400/5 to-blue-500/5 rounded-full blur-3xl animate-pulse delay-700" data-parallax="0.15" data-rotate="0.05"></div>
+                {/* Additional depth layers */}
+                <div className="absolute top-1/2 left-1/4 w-48 h-48 border border-cyan-400/10 rounded-full" data-parallax="0.28" data-rotate="0.12"></div>
+                <div className="absolute bottom-1/4 right-1/3 w-36 h-36 border border-purple-600/10 rounded-full" data-parallax="0.32" data-rotate="-0.1"></div>
             </div>
 
-            <div className={`relative z-10 w-full max-w-7xl mx-auto transition-all duration-1000 ${isVisible ? 'animate-fadeInUp' : 'opacity-0 translate-y-20'}`}>
+            <div className={`relative z-10 w-full max-w-7xl mx-auto ${isVisible ? 'is-visible' : ''} reveal-slide-bottom`}>
                 {/* Header */}
-                <div className="text-center mb-16">
-                    <h2 className="text-5xl lg:text-6xl font-bold gradient-text mb-6">
+                <div className="text-center mb-16 reveal-cascade">
+                    <h2 className="text-5xl lg:text-6xl font-bold gradient-text mb-6 cascade-item">
                         Featured Projects
                     </h2>
-                    <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-10">
+                    <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-10 cascade-item">
                         Discover the innovative solutions I've crafted with passion and precision
                     </p>
 
                     {/* Filter buttons */}
-                    <div className="flex flex-wrap justify-center gap-4 mb-8">
+                    <div className="flex flex-wrap justify-center gap-4 mb-8 reveal-stagger">
                         {categories.map((category, index) => {
                             const getFilterInfo = (cat) => {
                                 switch(cat) {
@@ -383,7 +396,7 @@ export default function Project() {
                     </div>
 
                     {/* Auto Scroll Control */}
-                    <div className="flex justify-center gap-4 mb-12">
+                    <div className="flex justify-center gap-4 mb-12 reveal-stagger">
                         <button
                             onClick={() => setIsScrolling(!isScrolling)}
                             className={`px-6 py-3 rounded-full font-medium transition-all duration-300 hover-lift flex items-center gap-2 ${
@@ -417,23 +430,21 @@ export default function Project() {
                     <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0B0B0F] to-transparent z-10 pointer-events-none"></div>
                     <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0B0B0F] to-transparent z-10 pointer-events-none"></div>
                     
-                    <div 
+                    <section 
                         id="projects-scroll-container"
-            ref={scrollRef}
-            role="region"
-            aria-label="Projects horizontal scroller"
-            tabIndex={0}
+                        ref={scrollRef}
+                        aria-label="Projects horizontal scroller"
+                        role="application"
                         className={`flex gap-8 overflow-x-auto overflow-y-hidden py-8 px-4 ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
-            onMouseEnter={() => setIsScrolling(false)}
-            onMouseLeave={handleMouseLeave}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onWheel={handleWheel}
+                        onMouseEnter={() => setIsScrolling(false)}
+                        onMouseLeave={handleMouseLeave}
+                        onMouseDown={handleMouseDown}
+                        onMouseMove={handleMouseMove}
+                        onMouseUp={handleMouseUp}
+                        onWheel={handleWheel}
                         onTouchStart={handleTouchStart}
                         onTouchMove={handleTouchMove}
                         onTouchEnd={handleTouchEnd}
-                        onKeyDown={handleKeyDown}
                         style={{ 
                             scrollBehavior: 'auto',
                             width: '100%',
@@ -458,12 +469,12 @@ export default function Project() {
                                 />
                             </div>
                         ))}
-                    </div>
+                    </section>
                 </div>
 
                 {/* Call to action */}
-                <div className="text-center mt-20">
-                    <div className="glass-dark rounded-3xl p-8 hover-lift">
+                <div className="text-center mt-20 reveal-zoom-rotate">
+                    <div className="glass-dark rounded-3xl p-8 hover-lift" data-scale="0.03">
                         <h3 className="text-3xl font-bold gradient-text mb-4">
                             Interested in Working Together?
                         </h3>
@@ -473,6 +484,7 @@ export default function Project() {
                         <a
                             href="#contact"
                             className="btn-glow hover-lift inline-flex items-center gap-3"
+                            data-parallax="0.05"
                         >
                             <span>Start a Project</span>
                             <img src="https://img.icons8.com/fluency/48/rocket.png" alt="rocket" className="w-5 h-5" />
