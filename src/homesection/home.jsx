@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useCountUp, useTypingAnimation } from "../hooks";
-import { DEVELOPER_ROLES } from "../constants";
+import { DEVELOPER_ROLES, ANIMATION_CONFIG } from "../constants";
 
 export default function Home() {
     const [isVisible, setIsVisible] = useState(false);
     const [showContent, setShowContent] = useState(false);
 
-    // Use custom hooks
-    const typingState = useTypingAnimation(DEVELOPER_ROLES);
+    // Use custom hooks with improved configuration
+    const typingState = useTypingAnimation(DEVELOPER_ROLES, {
+        typingSpeed: 100,
+        deletingSpeed: 50,
+        pauseDuration: 2000,
+        pauseBeforeNext: 500
+    });
     const projectCount = useCountUp(15);
     const experienceCount = useCountUp(3);
     const skillCount = useCountUp(20);
@@ -36,13 +41,15 @@ export default function Home() {
             <div className={`relative max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center transition-all duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
                 {/* Left Content - Text */}
                 <div className={`space-y-8 transition-all duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
-                    {/* Simplified Typing Animation */}
+                    {/* Enhanced Typing Animation */}
                     <div className="space-y-6">
                         <div className={`h-32 flex items-center relative transition-all duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
                             <div className="relative">
-                                <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-white via-cyan-300 to-purple-300 bg-clip-text text-transparent">
-                                    {typingState.currentText}
-                                    <span className="animate-pulse text-cyan-400 ml-1">|</span>
+                                <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-white via-cyan-300 to-purple-300 bg-clip-text text-transparent min-h-[4rem] flex items-center">
+                                    <span className="inline-block">
+                                        {typingState.currentText}
+                                        <span className={`animate-pulse text-cyan-400 ml-1 ${typingState.currentText ? '' : 'ml-0'}`}>|</span>
+                                    </span>
                                 </h1>
                                 <div className="mt-2">
                                     <span className="text-sm text-gray-500 font-medium">

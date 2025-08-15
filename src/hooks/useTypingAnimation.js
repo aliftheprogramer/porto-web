@@ -8,49 +8,63 @@ import { useState, useEffect, useCallback } from 'react';
  */
 export const useTypingAnimation = (roles, options = {}) => {
     const {
-        typingSpeed = 150,
-        deletingSpeed = 100,
-        pauseDuration = 1500,
-        pauseBeforeNext = 300
+        typingSpeed = 100,
+        deletingSpeed = 50,
+        pauseDuration = 2000,
+        pauseBeforeNext = 500
     } = options;
 
     const [currentText, setCurrentText] = useState("");
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isTyping, setIsTyping] = useState(true);
-    const [charIndex, setCharIndex] = useState(0);
-
-    const updateText = useCallback(() => {
-        const currentRole = roles[currentIndex];
-        
-        if (isTyping) {
-            if (charIndex < currentRole.length) {
-                setCurrentText(currentRole.slice(0, charIndex + 1));
-                setCharIndex(prev => prev + 1);
-            } else {
-                setTimeout(() => setIsTyping(false), pauseDuration);
-            }
-        } else {
-            if (charIndex > 0) {
-                setCurrentText(currentRole.slice(0, charIndex - 1));
-                setCharIndex(prev => prev - 1);
-                setTimeout(() => {
-                    setCurrentIndex((currentIndex + 1) % roles.length);
-                    setIsTyping(true);
-                }, pauseBeforeNext);
-            }
-        }
-    }, [charIndex, currentIndex, isTyping, roles, typingSpeed, deletingSpeed, pauseDuration, pauseBeforeNext]);
+    const [isPaused, setIsPaused] = useState(false);
 
     useEffect(() => {
-        const speed = isTyping ? typingSpeed : deletingSpeed;
-        const timer = setTimeout(updateText, speed);
-        return () => clearTimeout(timer);
-    }, [updateText, isTyping, typingSpeed, deletingSpeed]);
+        if (!roles || roles.length === 0) return;
+
+        const currentRole = roles[currentIndex];
+        let timeoutId;
+
+        if (isPaused) {
+            // Wait before starting next cycle
+            timeoutId = setTimeout(() => {
+                setIsPaused(false);
+                setIsTyping(true);
+                setCurrentText("");
+            }, pauseBeforeNext);
+        } else if (isTyping) {
+            // Typing phase
+            if (currentText.length < currentRole.length) {
+                timeoutId = setTimeout(() => {
+                    setCurrentText(currentRole.slice(0, currentText.length + 1));
+                }, typingSpeed);
+            } else {
+                // Finished typing, pause before deleting
+                timeoutId = setTimeout(() => {
+                    setIsTyping(false);
+                }, pauseDuration);
+            }
+        } else {
+            // Deleting phase
+            if (currentText.length > 0) {
+                timeoutId = setTimeout(() => {
+                    setCurrentText(currentText.slice(0, -1));
+                }, deletingSpeed);
+            } else {
+                // Finished deleting, move to next role
+                setCurrentIndex((prevIndex) => (prevIndex + 1) % roles.length);
+                setIsPaused(true);
+            }
+        }
+
+        return () => clearTimeout(timeoutId);
+    }, [currentText, currentIndex, isTyping, isPaused, roles, typingSpeed, deletingSpeed, pauseDuration, pauseBeforeNext]);
 
     return {
         currentText,
         currentIndex,
         isTyping,
-        status: isTyping ? 'typing...' : 'deleting...'
+        isPaused,
+        status: isPaused ? 'preparing...' : isTyping ? 'typing...' : 'deleting...'
     };
 };

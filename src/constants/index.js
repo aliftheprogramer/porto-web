@@ -11,9 +11,10 @@ export const DEVELOPER_ROLES = [
     "Hello, I'm Alif Arya",
     "Full Stack Developer",
     "UI/UX Designer", 
-    "Mobile Developer",
-    "Frontend Developer",
-    "Backend Developer"
+    "Mobile App Developer",
+    "Frontend Specialist",
+    "Backend Engineer",
+    "Creative Problem Solver"
 ];
 
 // Animation delays and durations
